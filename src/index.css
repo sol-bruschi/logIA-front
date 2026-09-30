@@ -1,0 +1,141 @@
+:root {
+  --bg-dark: #1e1e1e;
+  --card-bg: #e6e6e6;
+  --input-bg: #c4c4c4;
+  --btn-green: #83a284;
+  --text-dark: #1e1e1e;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-card {
+  background-color: var(--card-bg);
+  border-radius: 28px;
+  padding: 40px 30px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.login-card h2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+.input-figma {
+  background-color: var(--input-bg);
+  border: none;
+  border-radius: 16px;
+  padding: 14px 18px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  font-size: 14px;
+  outline: none;
+}
+
+.input-figma::placeholder {
+  color: #666;
+}
+
+.btn-figma {
+  background-color: var(--btn-green);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 12px 30px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-figma:hover {
+  opacity: 0.9;
+}
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #9e9e9e;
+}
+
+.sidebar-figma {
+  width: 70px;
+  background-color: #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px;
+  gap: 15px;
+}
+
+.sidebar-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+}
+
+.sidebar-btn.active, .sidebar-btn:hover {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.brand-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1e1e1e;
+}
+
+.search-input {
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 12px;
+  padding: 6px 16px;
+  width: 220px;
+  outline: none;
+}
+
+.user-badge {
+  font-size: 13px;
+  color: #333;
+  text-align: right;
+}
+
+.content-body {
+  padding: 20px 30px;
+  flex: 1;
+}
