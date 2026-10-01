@@ -1,28 +1,20 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
 
-const PERMISOS_DEFAULT = [
-  { menu: { nombre: 'productos' }, consulta: true, alta: true, baja: true, modificacion: true },
-  { menu: { nombre: 'comprobantes' }, consulta: true, alta: true, baja: true, modificacion: true },
-  { menu: { nombre: 'usuarios' }, consulta: true, alta: true, baja: true, modificacion: true },
-];
-
-export function AuthProvider({ children }) {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [accesos, setAccesos] = useState(PERMISOS_DEFAULT);
+  const [token, setToken] = useState(localStorage.getItem('token') || null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
-
-    if (token && savedUser) {
+    if (savedUser && token) {
       setUser(JSON.parse(savedUser));
     }
     setLoading(false);
-  }, []);
+  }, [token]);
 
   const login = async (identifier, password) => {
     try {
@@ -34,24 +26,29 @@ export function AuthProvider({ children }) {
       const { jwt, user: userData } = response.data;
       localStorage.setItem('token', jwt);
       localStorage.setItem('user', JSON.stringify(userData));
+      
+      setToken(jwt);
       setUser(userData);
-      setAccesos(userData?.grupo?.accesos || PERMISOS_DEFAULT);
+      return { success: true };
     } catch (error) {
-      throw error;
+      console.error('Error al iniciar sesión:', error.response?.data);
+      const msg = error.response?.data?.error?.message || 'Credenciales inválidas';
+      return { success: false, error: msg };
     }
   };
 
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    setToken(null);
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, accesos, login, logout, loading }}>
-      {!loading && children}
+    <AuthContext.Provider value={{ user, token, login, logout, loading }}>
+      {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export const useAuth = () => useContext(AuthContext);
