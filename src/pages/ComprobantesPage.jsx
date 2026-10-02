@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { Plus, FileText, RefreshCw } from 'lucide-react';
 
 export default function ComprobantesPage() {
@@ -16,7 +16,7 @@ export default function ComprobantesPage() {
   const fetchComprobantes = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:1337/api/comprobantes');
+      const response = await api.get('/comprobantes');
       setComprobantes(response.data.data || []);
     } catch (error) {
       console.error('Error al cargar comprobantes:', error);
@@ -38,7 +38,7 @@ export default function ComprobantesPage() {
     const montoLimpio = Number(formData.monto.toString().replace(/,/g, '.'));
 
     try {
-      await axios.post('http://localhost:1337/api/comprobantes', {
+      await api.post('/comprobantes', {
         data: {
           numero: formData.numero,
           tipo: formData.tipo,

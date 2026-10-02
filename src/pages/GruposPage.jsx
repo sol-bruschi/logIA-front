@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import { Users, ShieldCheck, Plus, UserCheck, LogOut, CheckCircle2, RefreshCw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ export default function GruposPage() {
   const fetchGrupos = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:1337/api/grupos');
+      const response = await api.get('/grupos');
       setGrupos(response.data.data || []);
     } catch (error) {
       console.error('Error al obtener grupos:', error);
@@ -40,7 +40,7 @@ export default function GruposPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:1337/api/grupos', {
+      await api.post('/grupos', {
         data: {
           nombre: formData.nombre,
           descripcion: formData.descripcion
@@ -51,7 +51,7 @@ export default function GruposPage() {
       fetchGrupos();
     } catch (error) {
       console.error('Error al crear grupo:', error.response?.data);
-      alert('Error al guardar el grupo en Strapi. Verificá los permisos del rol Public.');
+      alert('Error al guardar el grupo en Strapi. Verificá los permisos del rol.');
     }
   };
 

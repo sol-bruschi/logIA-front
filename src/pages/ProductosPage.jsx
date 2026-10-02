@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { Plus, Package, RefreshCw } from 'lucide-react';
 
 export default function ProductosPage() {
@@ -16,7 +16,7 @@ export default function ProductosPage() {
   const fetchProductos = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:1337/api/productos');
+      const response = await api.get('/productos');
       setProductos(response.data.data || []);
     } catch (error) {
       console.error('Error al cargar productos:', error);
@@ -36,7 +36,7 @@ export default function ProductosPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:1337/api/productos', {
+      await api.post('/productos', {
         data: {
           nombre: formData.nombre,
           codigo: formData.codigo,
